@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Qferiz Traffic Info</string>
+    <string name="title_activity_main">Qferiz Traffic Info</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="next">Next</string>
+    <string name="tab_library">Tab with Library</string>
+    <string name="title_activity_sub">SubActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txtFragment_movie_search">Fragment Movie Search</string>
+    <string name="txtFragment_movie_boxoffice">Fragment Movie BoxOffice</string>
+    <string name="txtFragment_movie_upcoming">Fragment Movie UpComing</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string-array name="tabs">
+        <item>NOTIFICATION</item>
+        <item>MAPS</item>
+        <item>DIRECTIONS</item>
+        <item>SEARCH</item>
+        <item>SETTING</item>
+        <item>ABOUT</item>
+    </string-array>
+    <string name="title_activity_using_tab_library">ActivityUsingTabLibrary</string>
+    <string name="title_activity_vector_test">VectorTestActivity</string>
+    <string name="error_timeout">Oops! Your Connection Timed Out</string>
+    <string name="error_auth_failure">Oops! RottenTomatoes Says It Doesn\'t Recognize You</string>
+    <string name="error_network">Oops! RottenTomatoes Server Just Messed Up</string>
+    <string name="error_parser">Oops! Data Received Was An Unreadable Mess</string>
+    <string name="title_activity_recycler_item_animations">ActivityRecyclerItemAnimations
+    </string>
+    <string name="add_item">Add Item</string>
+</resources>

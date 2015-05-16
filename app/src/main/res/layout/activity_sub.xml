@@ -1,0 +1,26 @@
+<!-- <RelativeLayout -->
+<com.qferiz.qferiztrafficinfo.views.MyLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    tools:context="com.qferiz.qferiztrafficinfo.activities.ActivityTouchEvent">
+
+    <!-- TODO: Untuk meng-includekan layout toolbar -->
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
+
+    <com.qferiz.qferiztrafficinfo.views.MyView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:color/white"
+        android:padding="16dp"
+        android:textColor="@android:color/black"
+        android:text="My View"/>
+
+
+<!-- </RelativeLayout> -->
+</com.qferiz.qferiztrafficinfo.views.MyLayout>

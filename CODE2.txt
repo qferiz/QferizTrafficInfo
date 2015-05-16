@@ -1,0 +1,60 @@
+
+    private static class MyTask extends AsyncTask<JobParameters, Void, JobParameters> {
+        private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        private VolleySingleton volleySingleton;
+        private RequestQueue requestQueue;
+
+
+        MyService myService;
+
+        MyTask(MyService myService) {
+            this.myService = myService;
+            volleySingleton = VolleySingleton.getInstance();
+            requestQueue = volleySingleton.getRequestQueue();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected JobParameters doInBackground(JobParameters... params) {
+            JSONObject response = sendJsonRequest();
+            ArrayList<Movie> listMovies = parseJSONResponse(response);
+            MyApplication.getWritableDatabase().insertMoviesBoxOffice(listMovies, true);
+
+            return params[0];
+        }
+
+        @Override
+        protected void onPostExecute(JobParameters jobParameters) {
+            //super.onPostExecute(jobParameters);
+            myService.jobFinished(jobParameters, false);
+        }
+
+   /*     private JSONObject sendJsonRequest() {
+            JSONObject response = null;
+            RequestFuture<JSONObject> requestFuture = RequestFuture.newFuture();
+
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+                    getRequestUrl(30),
+                    (String) null, requestFuture, requestFuture);
+
+            requestQueue.add(request);
+            try {
+                response = requestFuture.get(30000, TimeUnit.MILLISECONDS);
+            } catch (InterruptedException e) {
+//                e.printStackTrace();
+                L.m(e + "");
+            } catch (ExecutionException e) {
+//                e.printStackTrace();
+                L.m(e + "");
+            } catch (TimeoutException e) {
+//                e.printStackTrace();
+                L.m(e + "");
+            }
+
+            return response;
+
+        }*/

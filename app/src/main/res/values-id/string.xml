@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Qferiz Traffic Info</string>
+    <string name="title_activity_main">Qferiz Traffic Info</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Pengaturan</string>
+    <string name="next">Berikutnya</string>
+    <string name="tab_library">Tab with Library</string>
+    <string name="title_activity_sub">SubActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txtFragment_movie_search">Fragment Movie Search</string>
+    <string name="txtFragment_movie_boxoffice">Fragment Movie BoxOffice</string>
+    <string name="txtFragment_movie_upcoming">Fragment Movie UpComing</string>
+    <string name="drawer_open">Buka</string>
+    <string name="drawer_close">Tutup</string>
+    <string-array name="tabs">
+        <item>NOTIFIKASI</item>
+        <item>PETA</item>
+        <item>ARAH</item>
+        <item>CARI</item>
+        <item>PENGATURAN</item>
+        <item>TENTANG</item>
+    </string-array>
+    <string name="title_activity_using_tab_library">ActivityUsingTabLibrary</string>
+    <string name="title_activity_vector_test">VectorTestActivity</string>
+    <string name="error_timeout">Ups! Waktu Koneksi Anda Habis </string>
+    <string name="error_auth_failure">Ups! RottenTomatoes mengatakan tidak mengenali Anda</string>
+    <string name="error_network">Ups! Server RottenTomatoes Sedang Mengalamai Gangguan, Coba Beberapa Saat Lagi</string>
+    <string name="error_parser">Ups! Data Diterima Tetapi Tidak Dapat Terbaca Dengan Baik</string>
+    <string name="title_activity_recycler_item_animations">ActivityRecyclerItemAnimations
+    </string>
+    <string name="add_item">Tambah</string>
+</resources>

@@ -1,0 +1,34 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.qferiz.qferiztrafficinfo.activities.ActivityUsingTabLibrary">
+
+    <!-- TODO: Untuk meng-includekan layout toolbar -->
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
+
+    <it.neokree.materialtabs.MaterialTabHost
+        android:id="@+id/materialTabHost"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/app_bar"
+        app:iconColor="@android:color/white"
+        app:hasIcons="true"
+        app:textColor="@android:color/white"
+        app:primaryColor="@color/colorPrimary"
+        app:accentColor="@color/colorAccent" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/materialTabHost"
+        android:layout_weight="1" />
+
+
+</LinearLayout>

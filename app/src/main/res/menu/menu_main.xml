@@ -1,0 +1,34 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.qferiz.qferizmaterialdesign.MainActivity">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/navigate"
+        android:title="@string/next"
+        android:orderInCategory="200"
+        android:icon="@drawable/ic_action_next_item"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/tabWithLibrary"
+        android:title="@string/tab_library"
+        android:orderInCategory="300"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/vectorTestActivity"
+        android:title="@string/title_activity_vector_test"
+        android:orderInCategory="400"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_recycler_item_animations"
+        android:title="@string/title_activity_recycler_item_animations"
+        android:orderInCategory="500"
+        app:showAsAction="never" />
+
+
+
+</menu>

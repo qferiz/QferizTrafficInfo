@@ -1,0 +1,26 @@
+ private void sendJsonRequest() {
+            RequestFuture<JSONObject> requestFuture = RequestFuture.newFuture();
+
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+                    getRequestUrl(30),
+                    (String)null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            //L.t(getActivity(), response.toString());
+//                            textVolleyError.setVisibility(View.GONE);
+//                            listMovies = parseJSONResponse(response);
+//                            adapterBoxOffice.setMovies(listMovies);
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //L.t(getActivity(), error.getMessage() + "");
+//                    handleVolleyError(error);
+
+                }
+            });
+
+            requestQueue.add(request);
+        }
