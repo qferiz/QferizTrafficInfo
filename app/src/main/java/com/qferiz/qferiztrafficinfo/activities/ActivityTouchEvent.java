@@ -2,7 +2,7 @@ package com.qferiz.qferiztrafficinfo.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -12,7 +12,7 @@ import android.view.MotionEvent;
 import com.qferiz.qferiztrafficinfo.R;
 
 
-public class ActivityTouchEvent extends ActionBarActivity {
+public class ActivityTouchEvent extends AppCompatActivity {
 
     public static final String TAG = "QFERIZ";
 
@@ -24,10 +24,16 @@ public class ActivityTouchEvent extends ActionBarActivity {
     }
 
     private void setupToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Set the Toolbar as ActionBar
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        if (mToolbar != null) {
+            mToolbar.setTitle(R.string.app_name);
+            setSupportActionBar(mToolbar);
+            assert getSupportActionBar() != null;
+            //getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Supaya tombol back / logo bisa di tekan/pressable
+            getSupportActionBar().setIcon(R.mipmap.ic_launcher); // set Icon / Logo Apps
+        }
 
     }
 

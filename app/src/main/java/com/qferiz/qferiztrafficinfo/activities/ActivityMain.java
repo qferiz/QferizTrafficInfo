@@ -8,9 +8,10 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -25,9 +26,9 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 import com.qferiz.qferiztrafficinfo.R;
 import com.qferiz.qferiztrafficinfo.extras.SortListener;
 import com.qferiz.qferiztrafficinfo.fragments.FragmentBoxOffice;
+import com.qferiz.qferiztrafficinfo.fragments.FragmentDrawer;
 import com.qferiz.qferiztrafficinfo.fragments.FragmentSearch;
 import com.qferiz.qferiztrafficinfo.fragments.FragmentUpcoming;
-import com.qferiz.qferiztrafficinfo.fragments.FragmentDrawer;
 import com.qferiz.qferiztrafficinfo.logging.L;
 import com.qferiz.qferiztrafficinfo.services.ServiceMoviesBoxOffice;
 
@@ -37,8 +38,12 @@ import it.neokree.materialtabs.MaterialTabListener;
 import me.tatarka.support.job.JobInfo;
 import me.tatarka.support.job.JobScheduler;
 
+/**
+ * Created by Qferiz on 22/03/2015.
+ * Upload Project ke GitHub 16/05/2015
+ */
 
-public class ActivityMain extends ActionBarActivity implements MaterialTabListener, View.OnClickListener {
+public class ActivityMain extends AppCompatActivity implements MaterialTabListener, View.OnClickListener {
 
     //int representing our 0th tab corresponding to the Fragment where search results are dispalyed
     public static final int TAB_SEARCH_RESULT = 0;
@@ -59,13 +64,11 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
     //Run the JobSchedulerService every 2 minutes
     private static final long POLL_FREQUENCY = 28800000;
     private JobScheduler mJobScheduler;
-    private Toolbar mToolbar;
     private ViewPager mPager;
     private MaterialTabHost mTabHost;
     private ViewPagerAdapter mAdapter;
     private FloatingActionButton mFAB;
     private FloatingActionMenu mFABMenu;
-    private FragmentDrawer mDrawerFragment;
 
 
     @Override
@@ -110,11 +113,19 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
         */
     }
 
-    private void setupDrawer(){
-        mToolbar = (Toolbar) findViewById(R.id.app_bar);
-        //set the Toolbar as ActionBar
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    private void setupDrawer() {
+        //Set the Toolbar as ActionBar
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        if (mToolbar != null) {
+            mToolbar.setTitle(R.string.app_name);
+            setSupportActionBar(mToolbar);
+            assert getSupportActionBar() != null;
+            //getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true); // Supaya tombol back / logo bisa di tekan/pressable
+            getSupportActionBar().setIcon(R.mipmap.ic_launcher); // set Icon / Logo Apps
+        }
+
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //setup the NavigationDrawer
         FragmentDrawer drawerFragment = (FragmentDrawer)
@@ -123,7 +134,7 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
 
     }
 
-    private void setupTabs(){
+    private void setupTabs() {
         mTabHost = (MaterialTabHost) findViewById(R.id.materialTabHost);
         mPager = (ViewPager) findViewById(R.id.viewPager);
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -147,7 +158,7 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
         }
     }
 
-    private void setupJob(){
+    private void setupJob() {
         mJobScheduler = JobScheduler.getInstance(this);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -171,7 +182,7 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
     }
 
     public void onDrawerItemClicked(int index) {
-        Log.d("QFERIZ", "onDrawerItemClicked, Index :"+index);
+        Log.d("QFERIZ", "onDrawerItemClicked, Index :" + index);
         mPager.setCurrentItem(index);
     }
 
@@ -200,7 +211,7 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
 
         //set the background for all the sub buttons
         SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
-        itemBuilder.setBackgroundDrawable(getResources().getDrawable(R.drawable.selector_sub_button_gray));
+        itemBuilder.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.selector_sub_button_gray));
 
         //build the sub buttons
         SubActionButton buttonSortName = itemBuilder.setContentView(iconSortName).build();
@@ -350,16 +361,16 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
     }
     */
 
-    private void toggleTranslateFAB(float slideOffset){
-        if (mFABMenu != null){
-            if (mFABMenu.isOpen()){
+    private void toggleTranslateFAB(float slideOffset) {
+        if (mFABMenu != null) {
+            if (mFABMenu.isOpen()) {
                 mFABMenu.close(true);
             }
             mFAB.setTranslationX(slideOffset * 200);
         }
     }
 
-    public void onDrawerSlide(float slideOffset){
+    public void onDrawerSlide(float slideOffset) {
         toggleTranslateFAB(slideOffset);
     }
 
@@ -406,7 +417,8 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
         }
 
         private Drawable getIcon(int position) {
-            return getResources().getDrawable(icons[position]);
+            //return getResources().getDrawable(icons[position]);
+            return ContextCompat.getDrawable(getApplicationContext(), icons[position]);
         }
     }
 

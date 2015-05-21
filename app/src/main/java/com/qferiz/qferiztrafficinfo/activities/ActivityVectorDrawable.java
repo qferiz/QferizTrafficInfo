@@ -3,8 +3,8 @@ package com.qferiz.qferiztrafficinfo.activities;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,9 +15,8 @@ import com.qferiz.qferiztrafficinfo.extras.Util;
 import com.telly.mrvector.MrVector;
 
 
-public class ActivityVectorDrawable extends ActionBarActivity {
+public class ActivityVectorDrawable extends AppCompatActivity {
 
-    private Toolbar toolbar;
     private ImageView imageView;
 
     @SuppressLint("NewApi")
@@ -26,32 +25,35 @@ public class ActivityVectorDrawable extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_test);
 
-        toolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Set the Toolbar as ActionBar
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        if (mToolbar != null) {
+            mToolbar.setTitle(R.string.app_name);
+            setSupportActionBar(mToolbar);
+            assert getSupportActionBar() != null;
+            //getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Supaya tombol back / logo bisa di tekan/pressable
+            getSupportActionBar().setIcon(R.mipmap.ic_launcher); // set Icon / Logo Apps
+        }
 
         imageView = (ImageView) findViewById(R.id.vectorImage);
         Drawable drawable = null;
 
         /** CEK OS ANDROID VERSI SDK */
 
-        if (Util.isLollipopOrGreater()){
+        if (Util.isLollipopOrGreater()) {
             drawable = MrVector.inflate(getResources(), R.drawable.animator_vector_clock);
-        }
-        else {
+        } else {
             drawable = MrVector.inflate(getResources(), R.drawable.vector_clock);
         }
 
-        if (Util.isJellyBeanOrGreater()){
+        if (Util.isJellyBeanOrGreater()) {
             imageView.setBackground(drawable);
-        }
-        else {
+        } else {
             imageView.setBackgroundDrawable(drawable);
         }
 
-        if(drawable instanceof Animatable){
+        if (drawable instanceof Animatable) {
             ((Animatable) drawable).start();
         }
 

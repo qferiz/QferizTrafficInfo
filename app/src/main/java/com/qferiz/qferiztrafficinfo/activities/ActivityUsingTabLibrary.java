@@ -5,23 +5,23 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.qferiz.qferiztrafficinfo.fragments.MyFragment;
 import com.qferiz.qferiztrafficinfo.R;
+import com.qferiz.qferiztrafficinfo.fragments.MyFragment;
 
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 
 
-public class ActivityUsingTabLibrary extends ActionBarActivity implements MaterialTabListener {
+public class ActivityUsingTabLibrary extends AppCompatActivity implements MaterialTabListener {
 
-    private Toolbar toolbar;
     private MaterialTabHost tabHost;
     private ViewPager viewPager;
 
@@ -30,9 +30,16 @@ public class ActivityUsingTabLibrary extends ActionBarActivity implements Materi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_using_tab_library);
 
-        toolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Set the Toolbar as ActionBar
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        if (mToolbar != null) {
+            mToolbar.setTitle(R.string.app_name);
+            setSupportActionBar(mToolbar);
+            assert getSupportActionBar() != null;
+            //getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Supaya tombol back / logo bisa di tekan/pressable
+            getSupportActionBar().setIcon(R.mipmap.ic_launcher); // set Icon / Logo Apps
+        }
 
         tabHost = (MaterialTabHost) findViewById(R.id.materialTabHost);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -120,8 +127,9 @@ public class ActivityUsingTabLibrary extends ActionBarActivity implements Materi
             return getResources().getStringArray(R.array.tabs)[position];
         }
 
-        private Drawable getIcon(int position){
-            return getResources().getDrawable(icons[position]);
+        private Drawable getIcon(int position) {
+            //return getResources().getDrawable(icons[position]);
+            return ContextCompat.getDrawable(getApplicationContext(), icons[position]);
         }
     }
 

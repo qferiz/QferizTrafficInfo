@@ -1,7 +1,7 @@
 package com.qferiz.qferiztrafficinfo.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,23 +15,30 @@ import com.qferiz.qferiztrafficinfo.adapters.AdapterRecyclerItemAnimations;
 
 import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
 
-public class ActivityRecyclerItemAnimations extends ActionBarActivity {
+public class ActivityRecyclerItemAnimations extends AppCompatActivity {
 
     //int containing the duration of the animation run when items are added or removed from the RecyclerView
     public static final int ANIMATION_DURATION = 2000;
     private EditText mInput;
     private RecyclerView mRecyclerView;
-    private Toolbar mToolbar;
     private AdapterRecyclerItemAnimations mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_item_animations);
-        mToolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        //Set the Toolbar as ActionBar
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        if (mToolbar != null) {
+            mToolbar.setTitle(R.string.app_name);
+            setSupportActionBar(mToolbar);
+            assert getSupportActionBar() != null;
+            //getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Supaya tombol back / logo bisa di tekan/pressable
+            getSupportActionBar().setIcon(R.mipmap.ic_launcher); // set Icon / Logo Apps
+        }
+
         mInput = (EditText) findViewById(R.id.text_input);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerAnimatedItems);
