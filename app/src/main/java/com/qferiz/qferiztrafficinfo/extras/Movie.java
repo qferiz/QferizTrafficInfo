@@ -170,7 +170,7 @@ public class Movie implements Parcelable {
         L.m("writeToParcel Movie");
         dest.writeLong(id);
         dest.writeString(title);
-        dest.writeLong(releaseDateTheater.getTime());
+        dest.writeLong(releaseDateTheater == null ? -1 : releaseDateTheater.getTime());
         dest.writeInt(audienceScore);
         dest.writeString(synopsis);
         dest.writeString(urlThumbnail);

@@ -36,7 +36,8 @@ public class ActivityRecyclerItemAnimations extends AppCompatActivity {
             assert getSupportActionBar() != null;
             //getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Supaya tombol back / logo bisa di tekan/pressable
-            getSupportActionBar().setIcon(R.mipmap.ic_launcher); // set Icon / Logo Apps
+            getSupportActionBar().setHomeButtonEnabled(true);
+            //getSupportActionBar().setIcon(R.mipmap.ic_launcher); // set Icon / Logo Apps
         }
 
         mInput = (EditText) findViewById(R.id.text_input);

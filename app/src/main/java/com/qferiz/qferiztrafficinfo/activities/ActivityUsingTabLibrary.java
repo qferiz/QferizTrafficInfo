@@ -38,7 +38,10 @@ public class ActivityUsingTabLibrary extends AppCompatActivity implements Materi
             assert getSupportActionBar() != null;
             //getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Supaya tombol back / logo bisa di tekan/pressable
-            getSupportActionBar().setIcon(R.mipmap.ic_launcher); // set Icon / Logo Apps
+            getSupportActionBar().setHomeButtonEnabled(true);
+//            getSupportActionBar().setDisplayUseLogoEnabled(true);
+//            getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+            //getSupportActionBar().setIcon(R.mipmap.ic_launcher); // set Icon / Logo Apps
         }
 
         tabHost = (MaterialTabHost) findViewById(R.id.materialTabHost);

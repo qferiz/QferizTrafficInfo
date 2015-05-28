@@ -62,7 +62,7 @@ public class ActivityMain extends AppCompatActivity implements MaterialTabListen
     //tag associated with the FAB menu button that sorts by ratings
     private static final String TAG_SORT_RATINGS = "sortRatings";
     //Run the JobSchedulerService every 2 minutes
-    private static final long POLL_FREQUENCY = 28800000;
+    private static final long POLL_FREQUENCY = 28800000; // 28800 seconds - 480 menit - 8 jam
     private JobScheduler mJobScheduler;
     private ViewPager mPager;
     private MaterialTabHost mTabHost;
@@ -119,10 +119,12 @@ public class ActivityMain extends AppCompatActivity implements MaterialTabListen
         if (mToolbar != null) {
             mToolbar.setTitle(R.string.app_name);
             setSupportActionBar(mToolbar);
-            assert getSupportActionBar() != null;
-            //getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true); // Supaya tombol back / logo bisa di tekan/pressable
-            getSupportActionBar().setIcon(R.mipmap.ic_launcher); // set Icon / Logo Apps
+//            assert getSupportActionBar() != null;
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            getSupportActionBar().setHomeButtonEnabled(true);
+            //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Supaya tombol back / logo bisa di tekan/pressable
+            //getSupportActionBar().setDisplayUseLogoEnabled(true);
+            //getSupportActionBar().setIcon(R.mipmap.ic_launcher); // set Icon / Logo Apps
         }
 
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -176,7 +178,9 @@ public class ActivityMain extends AppCompatActivity implements MaterialTabListen
 
         //set periodic polling that needs net connection and works across device reboots
         builder.setPeriodic(POLL_FREQUENCY)
-                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
+                //.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY) // network any = wifi & data operator
+                .setRequiresCharging(true)
                 .setPersisted(true);
         mJobScheduler.schedule(builder.build());
     }

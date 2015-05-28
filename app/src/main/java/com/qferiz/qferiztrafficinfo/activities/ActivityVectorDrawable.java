@@ -33,7 +33,8 @@ public class ActivityVectorDrawable extends AppCompatActivity {
             assert getSupportActionBar() != null;
             //getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Supaya tombol back / logo bisa di tekan/pressable
-            getSupportActionBar().setIcon(R.mipmap.ic_launcher); // set Icon / Logo Apps
+            getSupportActionBar().setHomeButtonEnabled(true);
+            //getSupportActionBar().setIcon(R.mipmap.ic_launcher); // set Icon / Logo Apps
         }
 
         imageView = (ImageView) findViewById(R.id.vectorImage);

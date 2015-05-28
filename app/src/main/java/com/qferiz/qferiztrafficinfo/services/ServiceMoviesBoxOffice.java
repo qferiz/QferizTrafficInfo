@@ -33,8 +33,8 @@ public class ServiceMoviesBoxOffice extends JobService implements BoxOfficeMovie
     @Override
     public void onBoxOfficeMoviesLoaded(ArrayList<Movie> listMovies) {
         L.t(this, "onBoxOfficeMoviesLoaded");
+        L.T(this, "Job scheduled successfully finished !");
         jobFinished(jobParameters, false);
-
     }
 
 }

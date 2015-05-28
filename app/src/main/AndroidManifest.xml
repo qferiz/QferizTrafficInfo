@@ -49,6 +49,7 @@
                 android:value=".activities.ActivityMain" />
         </activity>
 
+        <!-- Define your service, make sure to add the permision! -->
         <service
             android:name=".services.ServiceMoviesBoxOffice"
             android:exported="true"
