@@ -127,8 +127,6 @@ public class ActivityMain extends AppCompatActivity implements MaterialTabListen
             //getSupportActionBar().setIcon(R.mipmap.ic_launcher); // set Icon / Logo Apps
         }
 
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         //setup the NavigationDrawer
         FragmentDrawer drawerFragment = (FragmentDrawer)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);

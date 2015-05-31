@@ -25,7 +25,7 @@ import java.util.Date;
 /**
  * Created by Qferiz on 05/04/2015.
  */
-public class AdapterBoxOffice extends RecyclerView.Adapter<AdapterBoxOffice.ViewHolderBoxOffice> {
+public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.ViewHolderBoxOffice> {
 
     private ArrayList<Movie> listMovies = new ArrayList<>();
     private LayoutInflater layoutInflater;
@@ -34,7 +34,7 @@ public class AdapterBoxOffice extends RecyclerView.Adapter<AdapterBoxOffice.View
     private DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     private int previousPosition = 0;
 
-    public AdapterBoxOffice(Context context) {
+    public AdapterMovies(Context context) {
         layoutInflater = LayoutInflater.from(context);
         volleySingleton = VolleySingleton.getInstance();
         imageLoader = volleySingleton.getImageLoader();

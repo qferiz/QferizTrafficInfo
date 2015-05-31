@@ -1,7 +1,6 @@
 package com.qferiz.qferiztrafficinfo.fragments;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,8 +19,9 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.qferiz.qferiztrafficinfo.R;
-import com.qferiz.qferiztrafficinfo.adapters.AdapterBoxOffice;
+import com.qferiz.qferiztrafficinfo.adapters.AdapterMovies;
 import com.qferiz.qferiztrafficinfo.callbacks.BoxOfficeMoviesLoadedListener;
+import com.qferiz.qferiztrafficinfo.database.MoviesDatabase;
 import com.qferiz.qferiztrafficinfo.extras.Movie;
 import com.qferiz.qferiztrafficinfo.extras.MovieSorter;
 import com.qferiz.qferiztrafficinfo.extras.MyApplication;
@@ -49,7 +49,7 @@ public class FragmentBoxOffice extends Fragment implements SortListener, BoxOffi
     private ArrayList<Movie> mListMovies = new ArrayList<>();
 
     //the adapter responsible for displaying our movies within a RecyclerView
-    private AdapterBoxOffice mAdapter;
+    private AdapterMovies mAdapter;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -104,35 +104,39 @@ public class FragmentBoxOffice extends Fragment implements SortListener, BoxOffi
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_box_office, container, false);
-        mTextError = (TextView) view.findViewById(R.id.textVolleyError);
+        View mView = inflater.inflate(R.layout.fragment_box_office, container, false);
+        mTextError = (TextView) mView.findViewById(R.id.textVolleyError);
 
         // SwipeRefreshLayout Animation Gesture
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeMovieHits);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) mView.findViewById(R.id.swipeMovieHits);
 //        mSwipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.RED, Color.MAGENTA, Color.GREEN);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.colorAnimateSwipe1, R.color.colorAnimateSwipe2);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         // RecyclerView
-        mRecyclerMovies = (RecyclerView) view.findViewById(R.id.listMoviesHits);
+        mRecyclerMovies = (RecyclerView) mView.findViewById(R.id.listMoviesHits);
+        //set the layout manager before trying to display data
         mRecyclerMovies.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new AdapterBoxOffice(getActivity());
+        mAdapter = new AdapterMovies(getActivity());
         mRecyclerMovies.setAdapter(mAdapter);
         if (savedInstanceState != null) {
+            //if this fragment starts after a rotation or configuration change, load the existing movies from a parcelable
             mListMovies = savedInstanceState.getParcelableArrayList(STATE_MOVIES);
 //            mAdapter.setMovies(mListMovies);
         } else {
+            //if this fragment starts for the first time, load the list of movies from a database
 //            sendJsonRequest();
-            mListMovies = MyApplication.getWritableDatabase().getAllMoviesBoxOffice();
+            mListMovies = MyApplication.getWritableDatabase().readMovies(MoviesDatabase.BOX_OFFICE);
             //if the database is empty, trigger an AsycnTask to download movie list from the web
             if (mListMovies.isEmpty()) {
-                L.t(getActivity(), "Executing task from fragment");
+                L.m("FragmentBoxOffice: executing task from fragment");
                 new TaskLoadMoviesBoxOffice(this).execute();
             }
         }
 
+        //update your Adapter to containg the retrieved movies
         mAdapter.setMovies(mListMovies);
-        return view;
+        return mView;
 
         //return inflater.inflate(R.layout.fragment_box_office, container, false);
     }
@@ -145,6 +149,7 @@ public class FragmentBoxOffice extends Fragment implements SortListener, BoxOffi
     }
 
     private void handleVolleyError(VolleyError error) {
+        //if any error occurs in the network operations, show the TextView that contains the error message
         mTextError.setVisibility(View.VISIBLE);
         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
             mTextError.setText(R.string.error_timeout);
@@ -169,6 +174,9 @@ public class FragmentBoxOffice extends Fragment implements SortListener, BoxOffi
     }
 
 
+    /**
+     * Called when the user chooses to sort results by name through the menu displayed inside FAB
+     */
     @Override
     public void onSortByName() {
         //L.t(getActivity(),"Sort name Box Office");
@@ -177,6 +185,9 @@ public class FragmentBoxOffice extends Fragment implements SortListener, BoxOffi
 
     }
 
+    /**
+     * Called when the user chooses to sort results by date through the menu displayed inside FAB
+     */
     @Override
     public void onSortByDate() {
         //L.t(getActivity(),"Sort Date Box Office");
@@ -185,6 +196,9 @@ public class FragmentBoxOffice extends Fragment implements SortListener, BoxOffi
 
     }
 
+    /**
+     * Called when the user chooses to sort results by rating through the menu displayed inside FAB
+     */
     @Override
     public void onSortByRating() {
         //L.t(getActivity(),"Sort Rating Box Office");
@@ -193,11 +207,15 @@ public class FragmentBoxOffice extends Fragment implements SortListener, BoxOffi
 
     }
 
+    /**
+     * Called when the AsyncTask finishes load the list of movies from the web
+     */
     @Override
     public void onBoxOfficeMoviesLoaded(ArrayList<Movie> mListMovies) {
-        L.t(getActivity(), "onBoxOfficeMoviesLoaded Fragment");
+        //L.t(getActivity(), "onBoxOfficeMoviesLoaded Fragment");
+        L.m("FragmentBoxOffice: onBoxOfficeMoviesLoaded Fragment");
         //update the Adapter to contain the new movies downloaded from the web
-        if (mSwipeRefreshLayout.isRefreshing()){
+        if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
         mAdapter.setMovies(mListMovies);
@@ -206,6 +224,7 @@ public class FragmentBoxOffice extends Fragment implements SortListener, BoxOffi
     @Override
     public void onRefresh() {
         L.t(getActivity(), "onRefresh");
+        //load the whole feed again on refresh, dont try this at home :)
         new TaskLoadMoviesBoxOffice(this).execute();
     }
 }

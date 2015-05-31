@@ -33,7 +33,7 @@ import static com.qferiz.qferiztrafficinfo.extras.Keys.EndpointBoxOffice.KEY_TIT
  * Created by Qferiz on 24/04/2015.
  */
 public class Parser {
-    public static ArrayList<Movie> parseJSONResponse(JSONObject response) {
+    public static ArrayList<Movie> parseMoviesJSON(JSONObject response) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         ArrayList<Movie> listMovies = new ArrayList<>();
         if (response != null && response.length() > 0){
@@ -121,6 +121,7 @@ public class Parser {
                     try {
                         date = dateFormat.parse(releaseDates);
                     }catch (ParseException e){
+                        //a parse exception generated here will store null in the release date, be sure to handle it
 
                     }
 
